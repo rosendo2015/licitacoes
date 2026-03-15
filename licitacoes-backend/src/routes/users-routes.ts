@@ -6,5 +6,6 @@ const usersController = new UsersController();
 
 // Cadastro de usuário
 usersRoutes.post("/", usersController.create);
+usersRoutes.get("/", usersController.index);
 
 export { usersRoutes };
