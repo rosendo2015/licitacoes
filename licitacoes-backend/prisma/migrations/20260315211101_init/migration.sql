@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "UserRole" AS ENUM ('admin', 'customer');
 
+-- CreateEnum
+CREATE TYPE "StatusLicitacao" AS ENUM ('EM_ANDAMENTO', 'CONCLUIDA', 'ADIADA', 'SUSPENSA', 'REVOGADA');
+
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
@@ -17,9 +20,15 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "licitacoes" (
     "id" TEXT NOT NULL,
-    "titulo" TEXT NOT NULL,
-    "descricao" TEXT NOT NULL,
-    "status" TEXT NOT NULL DEFAULT 'aberta',
+    "data" TIMESTAMP(3) NOT NULL,
+    "horarioInicio" TEXT NOT NULL,
+    "estado" TEXT NOT NULL,
+    "orgao" TEXT NOT NULL,
+    "pregao" TEXT NOT NULL,
+    "servico" TEXT NOT NULL,
+    "uasg" TEXT NOT NULL,
+    "observacoes" TEXT,
+    "status" "StatusLicitacao" NOT NULL DEFAULT 'EM_ANDAMENTO',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" TEXT NOT NULL,
