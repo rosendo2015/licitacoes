@@ -69,6 +69,46 @@
             <p>Já possui conta? <a href="index.html">Entrar</a></p>
         </div>
     </div>
+
+    <!-- Script de integração -->
+    <script>
+        const form = document.getElementById("registerForm");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const nome = document.getElementById("nome").value;
+            const sobrenome = document.getElementById("sobrenome").value;
+            const email = document.getElementById("email").value;
+            const senha = document.getElementById("senha").value;
+            const confirmarSenha = document.getElementById("confirmarSenha").value;
+
+            if (senha !== confirmarSenha) {
+                alert("As senhas não coincidem!");
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:3333/users", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        name: `${nome} ${sobrenome}`,
+                        email,
+                        password: senha,
+                        role: "USER"
+                    }),
+                });
+
+                if (!response.ok) throw new Error("Erro ao cadastrar usuário");
+
+                alert("Cadastro realizado com sucesso!");
+                window.location.href = "index.html"; // volta para login
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+    </script>
 </body>
 
 </html>
