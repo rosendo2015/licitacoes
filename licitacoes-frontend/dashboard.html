@@ -78,9 +78,12 @@
         }
 
         .cards-container {
+
             display: flex;
+            align-items: center;
+            justify-content: center;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 2rem;
         }
 
         .card {
@@ -138,9 +141,7 @@
     <header>
         <h1>Sistema de Licitações</h1>
         <nav>
-            <a href="#">Dashboard</a>
-            <a href="#">Relatórios</a>
-            <a href="#">Configurações</a>
+
         </nav>
         <div class="actions">
             <button id="btnCadastrar" class="btn-primary">Cadastrar Licitação</button>
@@ -150,7 +151,7 @@
 
     <!-- Conteúdo abaixo do menu -->
     <main>
-        <h2>Licitações Cadastradas</h2>
+        <hr>
         <div class="cards-container" id="cardsContainer">
             <!-- Cards preenchidos via JS -->
         </div>
