@@ -4,136 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard - Sistema de Licitações</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: #f5f6fa;
-        }
-
-        /* Menu superior */
-        header {
-            background: #2c3e50;
-            color: #fff;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        header h1 {
-            font-size: 20px;
-            margin: 0;
-        }
-
-        nav {
-            display: flex;
-            gap: 20px;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .actions button {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .btn-primary {
-            background: #3498db;
-            color: #fff;
-        }
-
-        .btn-danger {
-            background: #e74c3c;
-            color: #fff;
-        }
-
-        /* Conteúdo abaixo do menu */
-        main {
-            margin-top: 80px;
-            /* espaço para o header fixo */
-            padding: 20px;
-        }
-
-        .cards-container {
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            padding: 16px;
-            width: 300px;
-            position: relative;
-        }
-
-        .status-indicator {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            position: absolute;
-            top: 16px;
-            right: 16px;
-        }
-
-        .status-EM_ANDAMENTO {
-            background: orange;
-        }
-
-        .status-CONCLUIDA {
-            background: green;
-        }
-
-        .status-ADIADA {
-            background: blue;
-        }
-
-        .status-SUSPENSA {
-            background: gray;
-        }
-
-        .status-REVOGADA {
-            background: red;
-        }
-
-        .card h3 {
-            margin: 0 0 10px;
-            font-size: 18px;
-        }
-
-        .card p {
-            margin: 4px 0;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>
@@ -151,66 +22,74 @@
 
     <!-- Conteúdo abaixo do menu -->
     <main>
-        <hr>
-        <div class="cards-container" id="cardsContainer">
-            <!-- Cards preenchidos via JS -->
-        </div>
+
+        <div class="cards-container" id="cardsContainer"></div>
     </main>
 
-    <script>
-        async function carregarLicitacoes() {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                alert("Você precisa estar logado!");
-                window.location.href = "index.html";
-                return;
-            }
+    <!-- Modal de edição -->
+    <div id="editModal">
+        <div class="modal-content">
+            <h2>Editar Licitação</h2>
+            <form class="form-modal" id="editForm">
+                <input type="hidden" id="editId">
+                <div class="input-group-modal">
+                    <div>
+                        <label>Data</label>
+                        <input type="date" id="editData" required>
+                    </div>
+                    <div>
+                        <label>Horário</label>
+                        <input type="time" id="editHorario" required>
+                    </div>
+                </div>
+                <div class="input-group-modal">
+                    <div>
+                        <label>Estado</label>
+                        <input type="text" id="editEstado" required>
+                    </div>
 
-            try {
-                const response = await fetch("http://localhost:3333/licitacoes", {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                    <div>
+                        <label>Órgão</label>
+                        <input type="text" id="editOrgao" required>
+                    </div>
+                </div>
+                <div class="input-group-modal">
+                    <div>
+                        <label>Pregão</label>
+                        <input type="text" id="editPregao" required>
+                    </div>
+                    <div>
+                        <label>Serviço</label>
+                        <input type="text" id="editServico" required>
+                    </div>
+                </div>
+                <div class="input-group-modal">
+                    <div>
+                        <label>UASG</label>
+                        <input type="text" id="editUasg" required>
+                    </div>
+                    <div>
+                        <label>Status</label>
+                        <select id="editStatus" required>
+                            <option value="EM_ANDAMENTO">Em andamento</option>
+                            <option value="CONCLUIDA">Concluída</option>
+                            <option value="ADIADA">Adiada</option>
+                            <option value="SUSPENSA">Suspensa</option>
+                            <option value="REVOGADA">Revogada</option>
+                        </select>
+                    </div>
+                </div>
 
-                if (!response.ok) throw new Error("Erro ao carregar licitações");
+                <label>Observações</label>
+                <textarea id="editObservacoes"></textarea>
 
-                const licitacoes = await response.json();
-                const container = document.getElementById("cardsContainer");
-                container.innerHTML = "";
+                <button type="submit" class="btn-save">Salvar Alterações</button>
+                <button type="button" class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+            </form>
+        </div>
+    </div>
 
-                licitacoes.forEach(l => {
-                    const card = document.createElement("div");
-                    card.className = "card";
-
-                    const statusClass = `status-${l.status}`;
-                    card.innerHTML = `
-            <div class="status-indicator ${statusClass}"></div>
-            <h3>${l.orgao}</h3>
-            <p><strong>Data:</strong> ${new Date(l.data).toLocaleDateString()}</p>
-            <p><strong>Horário:</strong> ${l.horarioInicio}</p>
-            <p><strong>Estado:</strong> ${l.estado}</p>
-            <p><strong>Pregão:</strong> ${l.pregao}</p>
-            <p><strong>Serviço:</strong> ${l.servico}</p>
-            <p><strong>UASG:</strong> ${l.uasg}</p>
-            <p><strong>Status:</strong> ${l.status}</p>
-          `;
-                    container.appendChild(card);
-                });
-            } catch (error) {
-                alert(error.message);
-            }
-        }
-
-        document.getElementById("logout").addEventListener("click", () => {
-            localStorage.removeItem("token");
-            window.location.href = "index.html";
-        });
-
-        document.getElementById("btnCadastrar").addEventListener("click", () => {
-            window.location.href = "cadastrar.html"; // página de cadastro de licitação
-        });
-
-        carregarLicitacoes();
-    </script>
+    <script src="dashboard.js"></script>
 </body>
 
 </html>

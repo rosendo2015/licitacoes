@@ -119,6 +119,17 @@
             cursor: pointer;
             font-weight: 500;
         }
+
+        .btn-cancel {
+            background: #95a5a6;
+            color: #fff;
+            margin-left: 10px;
+        }
+
+        .btn-cancel:hover {
+            background: #abbec0;
+
+        }
     </style>
 </head>
 
@@ -191,6 +202,7 @@
             </div>
 
             <button type="submit">Cadastrar</button>
+            <button type="button" class="btn-cancel" onclick="window.history.back()">Cancelar</button>
         </form>
     </main>
 
