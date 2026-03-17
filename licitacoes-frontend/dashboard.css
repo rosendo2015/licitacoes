@@ -155,15 +155,29 @@ main {
   justify-content: flex-end;
   gap: 10px;
 }
+.btn {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 8px;
+}
 .btn-save {
   background: #3498db;
   color: #fff;
+}
+.btn-save:hover {
+  background: #2c74a3;
 }
 .btn-cancel {
   background: #95a5a6;
   color: #fff;
 }
+.btn-cancel:hover {
+  background: #666f6f;
+}
 .btn-danger {
   background: #e74c3c;
   color: #fff;
+}
+.btn-danger:hover {
+  background: #da3927;
 }
