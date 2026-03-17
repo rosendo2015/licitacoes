@@ -105,6 +105,29 @@ document.getElementById("logout").addEventListener("click", () => {
 document.getElementById("btnCadastrar").addEventListener("click", () => {
   window.location.href = "cadastrar.html";
 });
+document.getElementById("btnExcluir").addEventListener("click", async () => {
+  const token = localStorage.getItem("token");
+  const id = document.getElementById("editId").value;
+
+  if (!confirm("Tem certeza que deseja excluir esta licitação?")) return;
+
+  try {
+    const response = await fetch(`http://localhost:3333/licitacoes/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.ok) throw new Error("Erro ao excluir licitação");
+
+    alert("Licitação excluída com sucesso!");
+    fecharModal();
+    carregarLicitacoes(); // recarrega os cards
+  } catch (error) {
+    alert(error.message);
+  }
+});
 
 // Inicializa carregamento
 carregarLicitacoes();

@@ -30,61 +30,65 @@
     <div id="editModal">
         <div class="modal-content">
             <h2>Editar Licitação</h2>
-            <form class="form-modal" id="editForm">
+            <form id="editForm">
                 <input type="hidden" id="editId">
-                <div class="input-group-modal">
-                    <div>
-                        <label>Data</label>
-                        <input type="date" id="editData" required>
-                    </div>
-                    <div>
-                        <label>Horário</label>
-                        <input type="time" id="editHorario" required>
-                    </div>
-                </div>
-                <div class="input-group-modal">
-                    <div>
-                        <label>Estado</label>
-                        <input type="text" id="editEstado" required>
-                    </div>
 
-                    <div>
-                        <label>Órgão</label>
-                        <input type="text" id="editOrgao" required>
-                    </div>
-                </div>
-                <div class="input-group-modal">
-                    <div>
-                        <label>Pregão</label>
-                        <input type="text" id="editPregao" required>
-                    </div>
-                    <div>
-                        <label>Serviço</label>
-                        <input type="text" id="editServico" required>
-                    </div>
-                </div>
-                <div class="input-group-modal">
-                    <div>
-                        <label>UASG</label>
-                        <input type="text" id="editUasg" required>
-                    </div>
-                    <div>
-                        <label>Status</label>
-                        <select id="editStatus" required>
-                            <option value="EM_ANDAMENTO">Em andamento</option>
-                            <option value="CONCLUIDA">Concluída</option>
-                            <option value="ADIADA">Adiada</option>
-                            <option value="SUSPENSA">Suspensa</option>
-                            <option value="REVOGADA">Revogada</option>
-                        </select>
-                    </div>
+                <div>
+                    <label>Data</label>
+                    <input type="date" id="editData" required>
                 </div>
 
-                <label>Observações</label>
-                <textarea id="editObservacoes"></textarea>
+                <div>
+                    <label>Horário</label>
+                    <input type="time" id="editHorario" required>
+                </div>
 
-                <button type="submit" class="btn-save">Salvar Alterações</button>
-                <button type="button" class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+                <div>
+                    <label>Estado</label>
+                    <input type="text" id="editEstado" required>
+                </div>
+
+                <div>
+                    <label>Órgão</label>
+                    <input type="text" id="editOrgao" required>
+                </div>
+
+                <div>
+                    <label>Pregão</label>
+                    <input type="text" id="editPregao" required>
+                </div>
+
+                <div>
+                    <label>Serviço</label>
+                    <input type="text" id="editServico" required>
+                </div>
+
+                <div>
+                    <label>UASG</label>
+                    <input type="text" id="editUasg" required>
+                </div>
+
+                <div>
+                    <label>Status</label>
+                    <select id="editStatus" required>
+                        <option value="EM_ANDAMENTO">Em andamento</option>
+                        <option value="CONCLUIDA">Concluída</option>
+                        <option value="ADIADA">Adiada</option>
+                        <option value="SUSPENSA">Suspensa</option>
+                        <option value="REVOGADA">Revogada</option>
+                    </select>
+                </div>
+
+                <div class="full-width">
+                    <label>Observações</label>
+                    <textarea id="editObservacoes"></textarea>
+                </div>
+
+                <div class="full-width buttons">
+                    <button type="submit" class="btn-save">Salvar Alterações</button>
+                    <button type="button" class="btn-cancel" onclick="fecharModal()">Cancelar</button>
+                    <button type="button" class="btn-danger" id="btnExcluir">Excluir Licitação</button>
+                </div>
             </form>
         </div>
     </div>
