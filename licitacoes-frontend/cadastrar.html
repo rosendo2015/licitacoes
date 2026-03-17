@@ -123,12 +123,16 @@
         .btn-cancel {
             background: #95a5a6;
             color: #fff;
-            margin-left: 10px;
+
         }
 
         .btn-cancel:hover {
             background: #abbec0;
 
+        }
+
+        .buttons {
+            text-align: right;
         }
     </style>
 </head>
@@ -200,9 +204,11 @@
                 <label for="observacoes">Observações</label>
                 <textarea id="observacoes"></textarea>
             </div>
-
-            <button type="submit">Cadastrar</button>
-            <button type="button" class="btn-cancel" onclick="window.history.back()">Cancelar</button>
+            <div class="buttons">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                <button class="btn btn-cancel" type="button" class="btn-cancel"
+                    onclick="window.history.back()">Cancelar</button>
+            </div>
         </form>
     </main>
 
